@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        CheckGround();
+        _isGrounded = CheckGround();
     }
 
     private void Update()
@@ -39,6 +39,11 @@ public class PlayerMovement : MonoBehaviour
         {
             _animator.speed = DefaultAnimationSpeed;
             _animator.SetInteger(State, (int)MoveState.Idle);
+        }
+        else
+        {
+            _animator.speed = JumpAnimationSpeed;
+            _animator.SetInteger(State, (int)MoveState.Jump);
         }
 
         if (Input.GetButton(Horizontal))
@@ -52,17 +57,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void CheckGround()
+    private bool CheckGround()
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, CircleRadius);
 
-        _isGrounded = colliders.Length > 1;
-
-        if (_isGrounded == false)
-        {
-            _animator.speed = JumpAnimationSpeed;
-            _animator.SetInteger(State, (int)MoveState.Jump);
-        }
+        return colliders.Length > 1;
     }
 
     private void Jump()

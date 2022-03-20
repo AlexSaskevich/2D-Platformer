@@ -9,7 +9,6 @@ public class Patrolling : MonoBehaviour
     private const string FlipLeft = "FlipLeft";
 
     private Animator _animator;
-    private float _animationClipLength;
     private float _patrolLength = 4.0f;
     private bool _isAlive = true;
 
@@ -20,8 +19,6 @@ public class Patrolling : MonoBehaviour
 
     private void Start()
     {
-        _animationClipLength = GetAnimationClipLength();
-
         StartCoroutine(Patrol());
     }
 
@@ -35,14 +32,9 @@ public class Patrolling : MonoBehaviour
         }
     }
 
-    private float GetAnimationClipLength()
-    {
-        return _animator.runtimeAnimatorController.animationClips[0].length;
-    }
-
     private IEnumerator Patrol()
     {
-        WaitForSeconds waitForSeconds = new WaitForSeconds(_animationClipLength);
+        WaitForSeconds waitForSeconds = new WaitForSeconds(_animator.runtimeAnimatorController.animationClips[0].length);
 
         while (_isAlive)
         {

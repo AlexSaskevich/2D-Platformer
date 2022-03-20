@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    [SerializeField] private int _coinValue = 1;
+    [SerializeField] private int _value = 1;
 
     private Collider2D _collider;
 
@@ -18,7 +18,7 @@ public class Coin : MonoBehaviour
     {
         if (collision.TryGetComponent<Player>(out Player player))
         {
-            player.AddCoin(_coinValue);
+            player.AddCoin(_value);
 
             Destroy(gameObject);
         }
